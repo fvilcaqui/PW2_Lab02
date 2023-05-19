@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>JavaScript Dia de Arequipa</h2>
+<p>Podremos ver cuanto falta para el dia de arequipa: </p>
+<p id="demo"></p>
+<div id="resultado"></div>
+<script>
+   var Hoy = new Date();
+   var DiaArequipa = new Date(Hoy.getFullYear(), 7, 15);
+   var falta = DiaArequipa.getTime() - Hoy.getTime();
+   var diasRestantes = Math.ceil(falta/ (1000 * 60 * 60 * 24));
+  document.getElementById('resultado').innerText = diasRestantes + " dias";
+
+
+</script>
+</body>
+</html>
