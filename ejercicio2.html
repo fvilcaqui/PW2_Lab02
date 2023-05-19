@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>JavaScript Voltear palabras</h2>
+    <p>una página web que reciba un texto y al presionar un botón muestre el mismo texto invertido: </p>
+    <p id="demo"></p>
+    <input type="text" id="textInput" placeholder="Ingrese un texto">
+    <button onclick="invertirTexto()">Invertir</button>
+    <div id="resultado"></div>
+<script>
+    function invertirTexto() {
+      var texto = document.getElementById('textInput').value;
+      var textoInvertido = texto.split('').reverse().join('');
+      document.getElementById('resultado').innerText = textoInvertido;
+    }
+</script>
+</body>
+</html>
