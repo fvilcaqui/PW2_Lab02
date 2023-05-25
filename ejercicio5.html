@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculadora de suma</title>
+  <style>
+    table {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Calculadora de suma</h1>
+
+  <form id="tableForm">
+    <label for="numValues">Número de valores:</label>
+    <input type="number" id="numValues" min="1" required>
+    <button type="submit">Crear tabla</button>
+  </form>
+
+  <div id="tableContainer"></div>
+
+  <button id="calculateButton" disabled>Calcular suma</button>
+  <p id="result"></p>
+
+  <script>
+    document.getElementById('tableForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Evita el envío del formulario
+
+      var numValues = parseInt(document.getElementById('numValues').value, 10);
+      createTable(numValues);
+      document.getElementById('calculateButton').disabled = false;
+    });
+
+    function createTable(numValues) {
+      var tableContainer = document.getElementById('tableContainer');
+      tableContainer.innerHTML = ''; // Limpia el contenedor
+
+      var table = document.createElement('table');
+
+      for (var i = 0; i < numValues; i++) {
+        var row = document.createElement('tr');
+        var cell = document.createElement('td');
+        var value = getRandomNumber(); // Genera un número aleatorio
+        cell.textContent = value;
+        row.appendChild(cell);
+        table.appendChild(row);
+      }
+
+      tableContainer.appendChild(table);
+    }
+
+    function getRandomNumber() {
+      return Math.floor(Math.random() * 100) + 1; // Genera un número aleatorio entre 1 y 100
+    }
+
+    document.getElementById('calculateButton').addEventListener('click', function() {
+      var cells = document.querySelectorAll('#tableContainer td');
+      var sum = 0;
+
+      for (var i = 0; i < cells.length; i++) {
+        var value = parseInt(cells[i].textContent, 10);
+        if (!isNaN(value)) {
+          sum += value;
+        }
+      }
+
+      document.getElementById('result').textContent = 'La suma es: ' + sum;
+    });
+  </script>
+</body>
+</html>

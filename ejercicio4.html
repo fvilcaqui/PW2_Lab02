@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Extracción de Código de Sesión de Google Meet</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Extracción de Código de Sesión de Google Meet</h1>
+    <input type="text" id="urlInput" placeholder="Ingrese el URL">
+    <button onclick="extraerCodigoSesion()">Extraer Código</button>
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    function extraerCodigoSesion() {
+      var url = document.getElementById('urlInput').value;
+      var codigo = obtenerCodigoDeURL(url);
+      document.getElementById('resultado').innerText = 'Código de la sesión: ' + codigo;
+    }
+
+    function obtenerCodigoDeURL(url) {
+      var codigo = url.match(/\/([a-zA-Z0-9_-]{10,})[/?]/);
+      return codigo ? codigo[1].replace(/-/g, '') : 'Código no encontrado';
+    }
+  </script>
+</body>
+</html>
