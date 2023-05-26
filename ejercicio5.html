@@ -1,71 +1,61 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Calculadora de suma</title>
-  <style>
-    table {
-      margin-bottom: 10px;
-    }
-  </style>
-</head>
+
 <body>
-  <h1>Calculadora de suma</h1>
-
-  <form id="tableForm">
-    <label for="numValues">Número de valores:</label>
-    <input type="number" id="numValues" min="1" required>
-    <button type="submit">Crear tabla</button>
+  <h1>Calculadora</h1>
+  <form id="form">
+    <label for="numValores">Cantidad de Valores:</label>
+    <input type="number" id="numValores" min="1" required>
+    <button type="submit">Crear Tabla</button>
   </form>
-
-  <div id="tableContainer"></div>
-
-  <button id="calculateButton" disabled>Calcular suma</button>
-  <p id="result"></p>
-
+  <div id="tablaContainer"></div>
+  <button id="calcularBtn" disabled>Calcular Suma</button>
+  <p id="resultado"></p>
+  
   <script>
-    document.getElementById('tableForm').addEventListener('submit', function(event) {
-      event.preventDefault(); // Evita el envío del formulario
-
-      var numValues = parseInt(document.getElementById('numValues').value, 10);
-      createTable(numValues);
-      document.getElementById('calculateButton').disabled = false;
+    document.getElementById('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var numValores = parseInt(document.getElementById('numValores').value);
+      crearTabla(numValores);
+      document.getElementById('calcularBtn').disabled = false;
     });
-
-    function createTable(numValues) {
-      var tableContainer = document.getElementById('tableContainer');
-      tableContainer.innerHTML = ''; // Limpia el contenedor
-
-      var table = document.createElement('table');
-
-      for (var i = 0; i < numValues; i++) {
-        var row = document.createElement('tr');
-        var cell = document.createElement('td');
-        var value = getRandomNumber(); // Genera un número aleatorio
-        cell.textContent = value;
-        row.appendChild(cell);
-        table.appendChild(row);
+    
+    function crearTabla(numValores) {
+      var espacios = new Array(2);
+      var valores = new Array(numValores);
+      var tabla = document.getElementById("tablaContainer");
+      tabla.innerHTML = "";
+      for (var y = 2; y < 100; y++) {
+         if(numValores % y == 0){
+             espacios[0] = y;
+             espacios[1] = numValores/y;
+             break;
+         }
       }
-
-      tableContainer.appendChild(table);
-    }
-
-    function getRandomNumber() {
-      return Math.floor(Math.random() * 100) + 1; // Genera un número aleatorio entre 1 y 100
-    }
-
-    document.getElementById('calculateButton').addEventListener('click', function() {
-      var cells = document.querySelectorAll('#tableContainer td');
-      var sum = 0;
-
-      for (var i = 0; i < cells.length; i++) {
-        var value = parseInt(cells[i].textContent, 10);
-        if (!isNaN(value)) {
-          sum += value;
+      if(espacios[0]==0 || espacios[0]==null ){
+          espacios[0] = 1;
+          espacios[1] = numValores;
+      }  
+      for (var i = 0; i < numValores; i++) {
+        valores[i] = Math.floor(Math.random() * 100) + 1;
+      }
+      var h = 0;
+      for (var k = 0; k < espacios[1]; k++) {
+        for (var l = 0; l < espacios[0]; l++) {
+          tabla.innerHTML += valores[h];
+          tabla.innerHTML += " ";
+          h++;
         }
+        tabla.innerHTML += "<br>";
       }
-
-      document.getElementById('result').textContent = 'La suma es: ' + sum;
-    });
+      document.getElementById('calcularBtn').addEventListener('click', function() {
+      var suma = 0;
+      for (var q = 0; q < numValores; q++) {
+          suma += valores[q];
+      }
+      document.getElementById('resultado').textContent = 'La suma es: ' + suma;
+    });     
+    }
   </script>
 </body>
 </html>
